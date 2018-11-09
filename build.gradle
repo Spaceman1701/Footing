@@ -8,5 +8,8 @@ repositories {
 
 dependencies {
     testCompile 'junit:junit:4.12'
+    compile 'com.google.truth:truth:0.30'
+    compile 'com.google.testing.compile:compile-testing:0.10'
+    compile group: 'com.google.auto.service', name: 'auto-service', version: '1.0-rc4'
 }
 
