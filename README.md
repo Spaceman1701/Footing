@@ -20,6 +20,11 @@ from Google), you can run individual unit tests on your compile-time code.
 Footing allows you do this by taking advantage of `FunctionInterface` allowing
 tests to be written as lambdas.
 
+You can write assertions in your compile-time tests. When these assertions
+cause a build failure, Footing intercepts them and rethrows them properly.
+This means assertion errors in Footing tests look exactly like assertion
+errors in normal tests. 
+
 Example:
 
 ```java
@@ -44,4 +49,5 @@ class TestAPartOfAProcessor {
 }
 ```
 
-**This library is super unfinished right now**
+**This library is super unfinished right now** See the unit tests for 
+examples of the current API.
