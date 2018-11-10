@@ -1,5 +1,6 @@
 package io.github.spaceman1701.footing.api;
 
+import com.google.common.collect.ImmutableList;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.Compiler;
 import io.github.spaceman1701.footing.annotation.FootingTestAnnotationProcessor;
@@ -19,6 +20,12 @@ public class FootingCompiler {
         return new FootingCompiler(Compiler.javac());
     }
 
+    public static Compilation compileAndRun(Iterable<JavaFileObject> objects, FootingTest test) {
+        FootingCompiler c = compiler();
+
+        return c.withTest(test).compile(objects);
+    }
+
     public FootingCompiler withProcessors(Processor... processors) {
         return new FootingCompiler(compiler.withProcessors(processors));
     }
@@ -33,10 +40,6 @@ public class FootingCompiler {
     }
 
     public Compilation compile(Iterable<? extends JavaFileObject> javaFileObjects) {
-        return compiler.compile(javaFileObjects);
-    }
-
-    public Compilation compile(JavaFileObject... javaFileObjects) {
         try {
             return compiler.compile(javaFileObjects);
         } catch (RuntimeException re) {
@@ -46,5 +49,9 @@ public class FootingCompiler {
                 throw re;
             }
         }
+    }
+
+    public Compilation compile(JavaFileObject... javaFileObjects) {
+        return compiler.compile(ImmutableList.copyOf(javaFileObjects));
     }
 }

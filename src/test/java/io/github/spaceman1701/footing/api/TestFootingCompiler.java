@@ -9,6 +9,8 @@ import org.junit.Test;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.tools.JavaFileObject;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import static com.google.testing.compile.CompilationSubject.assertThat;
@@ -126,5 +128,37 @@ public class TestFootingCompiler {
                     Assert.assertTrue(roots.isEmpty());
                 }))
                 .compile(fileObject);
+    }
+
+    @Test
+    public void testCompileAndRun() {
+        TypeSpec testType = TypeSpec.classBuilder("HelloWorld")
+                .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                .addMethod(MethodSpec.methodBuilder("main")
+                        .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                        .returns(TypeName.VOID)
+                        .addParameter(ArrayTypeName.get(String[].class), "args")
+                        .addStatement("System.out.println($S)", "Hello, World")
+                        .build()
+                )
+                .addAnnotation(RunFootingTest.class)
+                .build();
+        JavaFile file = JavaFile.builder("com.foo", testType)
+                .build();
+        JavaFileObject fileObject = file.toJavaFileObject();
+
+        List<JavaFileObject> fileObjectList = new ArrayList<>();
+        fileObjectList.add(fileObject);
+
+        Compilation c = FootingCompiler.compileAndRun(fileObjectList, ((procEnv, roundEnv) -> {
+            if (roundEnv.processingOver()) {
+                return;
+            }
+            Set<? extends Element> roots = roundEnv.getRootElements();
+
+            Assert.assertEquals(1, roots.size());
+        }));
+
+        assertThat(c).succeededWithoutWarnings();
     }
 }
