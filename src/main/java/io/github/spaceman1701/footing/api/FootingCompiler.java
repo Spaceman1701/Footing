@@ -8,6 +8,8 @@ import io.github.spaceman1701.footing.annotation.FootingTestAnnotationProcessor;
 import javax.annotation.processing.Processor;
 import javax.tools.JavaFileObject;
 
+import static com.google.testing.compile.CompilationSubject.*;
+
 public class FootingCompiler {
 
     private Compiler compiler;
@@ -23,7 +25,9 @@ public class FootingCompiler {
     public static Compilation compileAndRun(Iterable<JavaFileObject> objects, FootingTest test) {
         FootingCompiler c = compiler();
 
-        return c.withTest(test).compile(objects);
+        Compilation compilation = c.withTest(test).compile(objects);
+        assertThat(compilation).succeededWithoutWarnings(); //normal tests should also either fail or compile fine
+        return compilation;
     }
 
     public FootingCompiler withProcessors(Processor... processors) {

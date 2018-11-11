@@ -77,7 +77,7 @@ public final class TestEnvironment {
     }
 
     public TypeElement requireTypeByName(String name) {
-        TypeElement element = procEnv.getElementUtils().getTypeElement(name);
+        TypeElement element = getTypeByName(name);
         if (element == null) {
             throw new AssertionError(name + " was required but not found");
         }

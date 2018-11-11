@@ -51,3 +51,9 @@ class TestAPartOfAProcessor {
 
 **This library is super unfinished right now** See the unit tests for 
 examples of the current API.
+
+The library is relatively simple and has good test coverage. About 95%
+of lines are covered right now. 
+
+If you really want to use it for something, it should be fine. Just don't
+expect the API to remain stable.
