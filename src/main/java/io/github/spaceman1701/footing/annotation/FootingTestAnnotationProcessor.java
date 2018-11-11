@@ -15,6 +15,11 @@ public class FootingTestAnnotationProcessor extends AbstractProcessor {
 
     private final FootingTest test;
 
+    public FootingTestAnnotationProcessor() {
+        super();
+        test = null;
+    }
+
     public FootingTestAnnotationProcessor(final FootingTest test) {
         super();
         this.test = test;
