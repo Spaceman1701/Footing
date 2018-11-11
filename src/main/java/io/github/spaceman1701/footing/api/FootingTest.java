@@ -1,9 +1,8 @@
 package io.github.spaceman1701.footing.api;
 
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
+import io.github.spaceman1701.footing.annotation.TestEnvironment;
 
 @FunctionalInterface
 public interface FootingTest {
-    void test(ProcessingEnvironment procEnv, RoundEnvironment roundEnv);
+    void test(TestEnvironment env);
 }

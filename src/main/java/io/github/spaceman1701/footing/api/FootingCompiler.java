@@ -52,6 +52,6 @@ public class FootingCompiler {
     }
 
     public Compilation compile(JavaFileObject... javaFileObjects) {
-        return compiler.compile(ImmutableList.copyOf(javaFileObjects));
+        return this.compile(ImmutableList.copyOf(javaFileObjects));
     }
 }

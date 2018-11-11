@@ -87,11 +87,11 @@ public class TestFootingCompiler {
         JavaFileObject fileObject = file.toJavaFileObject();
 
         Compilation c = FootingCompiler.compiler()
-                .withTest(((procEnv, roundEnv) -> {
-                    if (roundEnv.processingOver()) {
+                .withTest((env -> {
+                    if (env.processingOver()) {
                         return;
                     }
-                    Set<? extends Element> roots = roundEnv.getRootElements();
+                    Set<? extends Element> roots = env.getRoundEnvironment().getRootElements();
 
                     Assert.assertFalse(roots.isEmpty());
                 }))
@@ -119,11 +119,11 @@ public class TestFootingCompiler {
         JavaFileObject fileObject = file.toJavaFileObject();
 
         Compilation c = FootingCompiler.compiler()
-                .withTest(((procEnv, roundEnv) -> {
-                    if (roundEnv.processingOver()) {
+                .withTest((env -> {
+                    if (env.processingOver()) {
                         return;
                     }
-                    Set<? extends Element> roots = roundEnv.getRootElements();
+                    Set<? extends Element> roots = env.getRoundEnvironment().getRootElements();
 
                     Assert.assertTrue(roots.isEmpty());
                 }))
@@ -150,11 +150,11 @@ public class TestFootingCompiler {
         List<JavaFileObject> fileObjectList = new ArrayList<>();
         fileObjectList.add(fileObject);
 
-        Compilation c = FootingCompiler.compileAndRun(fileObjectList, ((procEnv, roundEnv) -> {
-            if (roundEnv.processingOver()) {
+        Compilation c = FootingCompiler.compileAndRun(fileObjectList, (env -> {
+            if (env.processingOver()) {
                 return;
             }
-            Set<? extends Element> roots = roundEnv.getRootElements();
+            Set<? extends Element> roots = env.getRoundEnvironment().getRootElements();
 
             Assert.assertEquals(1, roots.size());
         }));

@@ -22,7 +22,8 @@ public class FootingTestAnnotationProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        test.test(processingEnv, roundEnv);
+        TestEnvironment env = new TestEnvironment(processingEnv, roundEnv);
+        test.test(env);
         return false;
     }
 }
