@@ -2,8 +2,22 @@ group 'io.github.spaceman1701'
 version '0.1-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: 'maven'
-// In this section you declare where to find the dependencies of your project
+apply plugin: 'maven-publish'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+publishing {
+    publications {
+        Library(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
+
 repositories {
     mavenCentral()
     mavenLocal()

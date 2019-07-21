@@ -9,7 +9,7 @@ import javax.lang.model.element.TypeElement;
 import java.util.Set;
 
 @AutoService(Processor.class)
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
+@SupportedSourceVersion(SourceVersion.RELEASE_12)
 @SupportedAnnotationTypes("io.github.spaceman1701.footing.annotation.RunFootingTest")
 public class FootingTestAnnotationProcessor extends AbstractProcessor {
 
